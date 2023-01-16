@@ -1,0 +1,10 @@
+FROM jenkins/jenkins:lts-jdk11
+
+COPY --chown=jenkins:jenkins plugins.txt /plugins.txt
+
+RUN jenkins-plugin-cli --plugin-file /plugins.txt
+
+USER root
+RUN apt-get update && apt-get install -y python3
+RUN apt-get -y install python3-pip
+EXPOSE 5000
