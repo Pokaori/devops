@@ -6,10 +6,11 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
 sudo apt update
 sudo apt-get install docker-ce -y
-sudo systemctl start docker
-sudo systemctl enable docker
 sudo groupadd docker
 sudo usermod -aG docker ubuntu
+sudo systemctl start docker
+sudo systemctl enable docker
+cd /home/ubuntu
 sudo echo "amazon-ecs
 ansicolor
 antisamy-markup-formatter
@@ -88,7 +89,6 @@ RUN apt-get -y install python3-pip
 EXPOSE 5000
 " > custom-jenkins-docker
 
+docker build -f custom-jenkins-docker . -t custom-jenkins-image
 
-sudo docker build -f custom-jenkins-docker . -t custom-jenkins-image
-
-sudo docker run -p 8080:8080 -p 50000:50000 -p 5000:5000 --restart=on-failure -t custom-jenkins-image
+docker run -p 8080:8080 -p 5000:5000 --restart=on-failure -t custom-jenkins-image
