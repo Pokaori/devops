@@ -61,7 +61,7 @@ resource "aws_key_pair" "deployer" {
 }
 
 resource "aws_instance" "app_server" {
-  ami             = "ami-06878d265978313ca"
+  ami             = "ami-0b93ce03dcbcb10f6"
   instance_type   = "t2.micro"
   key_name        = aws_key_pair.deployer.id
   vpc_security_group_ids = ["${aws_security_group.ingress-all-test.id}"]
